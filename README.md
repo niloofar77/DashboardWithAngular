@@ -1,3 +1,10 @@
+Use this sample account to test the login flow:
+
+- **username:** `emilys`
+- **password:** `emilyspass`
+
+
+
 # MyApp
 
 This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 19.2.15.
