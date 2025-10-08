@@ -1,7 +1,9 @@
 import { createReducer, on } from '@ngrx/store';
-import { addUserSuccess } from './user.action';
 import { User } from './user.modal';
-
+import {
+  loadUsersSuccess,
+  addUserSuccess
+} from './user.action';
 
 export interface UserState {
   users: User[];
@@ -13,8 +15,6 @@ export const initialState: UserState = {
 
 export const userReducer = createReducer(
   initialState,
-  on(addUserSuccess, (state, { user }) => ({
-    ...state,
-    users: [...state.users, user]
-  }))
+  on(loadUsersSuccess, (state, { users }) => ({ ...state, users })),
+  on(addUserSuccess, (state, { user }) => ({ ...state, users: [...state.users, user] }))
 );

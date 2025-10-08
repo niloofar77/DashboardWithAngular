@@ -1,21 +1,13 @@
 <nav aria-label="Page navigation">
   <ul class="pagination">
->
+    
     <li class="page-item" [class.disabled]="currentPage === 1">
       <button class="page-link" (click)="previousPage()">&#8249;</button>
     </li>
 
-  
-    <li
-      class="page-item"
-      *ngFor="let page of pages"
-      [class.active]="page === currentPage"
-    >
-      <button
-        class="page-link"
-        *ngIf="page !== '...'; else ellipsisTemplate"
-        (click)="goToPage(page)"
-      >
+
+    <li class="page-item" *ngFor="let page of pages" [class.active]="page === currentPage">
+      <button class="page-link" *ngIf="page !== '...'; else ellipsisTemplate" (click)="goToPage(page)">
         {{ page }}
       </button>
       <ng-template #ellipsisTemplate>
@@ -23,7 +15,7 @@
       </ng-template>
     </li>
 
-    
+
     <li class="page-item" [class.disabled]="currentPage === totalPages">
       <button class="page-link" (click)="nextPage()">&#8250;</button>
     </li>

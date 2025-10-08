@@ -1,7 +1,8 @@
 
-import { Component, inject, OnInit, signal } from '@angular/core';
+import { Component, OnInit, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+
 import { SearchBarComponent } from '../../../app/shared/searchbar/searchbar';
 import { SortComponent } from "../../../app/shared/sort/sort.component";
 import { ModalComponent } from '../../../app/shared/modal/modal.component';
@@ -10,8 +11,7 @@ import { UserService } from '../services/user.services';
 import { ActivatedRoute } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { User } from '../state/user.modal';
-import { addUser, deleteUser } from '../state/user.action';
-
+import { addUser } from '../state/user.action';
 
 @Component({
   selector: 'app-users',
@@ -29,33 +29,28 @@ export class UserComponent implements OnInit {
   message:string="با موفقیت حذف شد!"
   pagesize:number=10;
   totalItems:number=10
-  private store=inject(Store<{users:{users:User[]}}>)
-  onAdd(){
-    const newUser: User = { id: Date.now(), name: "ک,", email: 'new@user.com',role:"admin" };
-    this.store.dispatch(addUser({user:newUser}))
-    console.log("added")
-
-  }  
-  onDelete(userId:number){
-    this.store.dispatch(deleteUser({userId}))
-    console.log("deleted")
-
-  }
+  
 
 
-  constructor(private settingService: UserService,private route:ActivatedRoute) {}
+  constructor(private settingService: UserService,private route:ActivatedRoute, private store: Store<{ users: { users: User[] } }>) {}
+  
 
   ngOnInit(): void {
-    this.store.select('users').subscribe((state) => {
-      this.usersData = state.users; 
-    });
     this.fetchUsers();
     // this.route.data.subscribe((data) => {
     //   this.usersData = data['users'].body?.users || []; 
-    //   this.totalItems =  data['users'].body.total; 
     // });
   }
+  // onAdd() {
+  //   const newUser = {
+  //     id:121,
+  //   name:"nnnnnnn",
+  //    email:"sn.mousavui77@gmail.com",
+  //    role:"admin"
+  //   };
   
+  //   this.store.dispatch(addUser({ user: newUser }));
+  // }
   
 
   // onSearch(searchQuery:string){
@@ -108,34 +103,27 @@ export class UserComponent implements OnInit {
 
    
   }
-  // fetchUsers() {
-  //   this.settingService.getAllUsers(this.currentPage, this.pagesize).subscribe((response: any) => {
-  //     this.usersData = response.body.users;
-  //     this.totalItems = response.body.total; 
-      
-  //   });
-  // // }
   fetchUsers() {
     this.settingService.getAllUsers(this.currentPage, this.pagesize).subscribe((response: any) => {
-      const users = response.body.users;
-      this.totalItems = response.body.total;
-      users.forEach(user => this.store.dispatch(addUser({ user })));
+      this.usersData = response.body.users;
+      this.totalItems = response.body.total; 
+      
     });
   }
-  
 
-  // deleteUser(userId: number) {
-  //   this.showModal.set(true)
-  //   this.settingService.deleteUser(userId).subscribe({
-  //     next: (res) => {
+
+  deleteUser(userId: number) {
+    this.showModal.set(true)
+    this.settingService.deleteUser(userId).subscribe({
+      next: (res) => {
     
-  //       this.usersData = this.usersData.filter(user => user.id !== userId);
-  //     },
-  //     error: (err) => {
-  //       console.log(err);
-  //     }
-  //   });
-  // }
+        this.usersData = this.usersData.filter(user => user.id !== userId);
+      },
+      error: (err) => {
+        console.log(err);
+      }
+    });
+  }
   closeModal(){
     this.showModal.set(false)
   }
@@ -146,3 +134,52 @@ export class UserComponent implements OnInit {
   }
   
 }
+
+//tamrin
+// import { Component, OnInit } from '@angular/core';
+// import { Store, select } from '@ngrx/store';
+// import { Observable } from 'rxjs';
+// import { User } from '../state/user.modal';
+// import { loadUsers, addUser } from '../state/user.action';
+// import { UserState } from '../state/user.reducer';
+// import { FormsModule } from '@angular/forms';
+// import { CommonModule } from '@angular/common';
+
+// @Component({
+//   selector: 'app-user',
+//   templateUrl: './users.component.html',
+//   styleUrls: ['./users.component.css'],
+//   imports:[FormsModule,CommonModule]
+// })
+// export class UserComponent implements OnInit {
+//   users$: Observable<User[]>;
+//   newUserName = '';
+//   newUserEmail = '';
+//   newUserRole = '';
+
+//   constructor(private store: Store<{ users: UserState }>) {
+//     this.users$ = store.pipe(select(state => state.users.users));
+//   }
+
+//   ngOnInit(): void {
+//     this.store.dispatch(loadUsers());
+//   }
+
+//   addNewUser() {
+//     if (!this.newUserName || !this.newUserEmail || !this.newUserRole) return;
+
+//     this.store.dispatch(addUser({
+//       user: {
+//         id:13333,
+//         name: this.newUserName,
+//         email: this.newUserEmail,
+//         role: this.newUserRole
+//       }
+//     }));
+
+//     // پاک کردن فرم
+//     this.newUserName = '';
+//     this.newUserEmail = '';
+//     this.newUserRole = '';
+//   }
+// }

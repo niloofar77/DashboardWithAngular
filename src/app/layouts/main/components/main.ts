@@ -1,5 +1,4 @@
 import { Component, signal } from '@angular/core';
-
 import { NgApexchartsModule } from 'ng-apexcharts';
 import { DashboardComponent } from '../../../../features/dashboard/components/dashboard.component';
 import { RouterLink, RouterOutlet } from '@angular/router';

@@ -3,6 +3,7 @@ import { Injectable, signal } from '@angular/core';
 
 import { Observable } from 'rxjs';
 import { EnvService } from '../../../app/core/services/env.service';
+import { User } from '../state/user.modal';
 
 
 @Injectable({ providedIn: 'root' })
@@ -18,7 +19,9 @@ export class UserService {
       const skip = (page - 1) * itemsPerPage; 
       return this.http.get(`https://dummyjson.com/users?skip=${skip}&limit=${itemsPerPage}`, { observe: 'response' });
     }
-    createUser(){
+    createUser(user:User):Observable<User>{
+      return this.http.post<User>(`'https://dummyjson.com/users/add`,user );
+
       
     }
       deleteUser(id:number){
@@ -26,3 +29,25 @@ export class UserService {
       }
     
 }
+//tamrin
+// import { Injectable } from '@angular/core';
+// import { HttpClient } from '@angular/common/http';
+// import { Observable } from 'rxjs';
+// import { User } from '../state/user.modal';
+
+// @Injectable({
+//   providedIn: 'root'
+// })
+// export class UserService {
+//   private baseUrl = 'https://dummyjson.com/users';
+
+//   constructor(private http: HttpClient) {}
+
+//   getUsers(): Observable<User[]> {
+//     return this.http.get<User[]>(`${this.baseUrl}`);
+//   }
+
+//   createUser(user:User): Observable<User> {
+//     return this.http.post<User>(`${this.baseUrl}/add`, user);
+//   }
+// }

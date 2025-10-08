@@ -5,7 +5,7 @@ import { MainLayoutComponent } from './layouts/main/components/main';
 
 import { RoleGuard } from './core/guards/authGuard';
 import { UserComponent } from '../features/settings/components/users.component';
-import { UserResolver } from './core/resolvers/user.resolver';
+
 
 export const routes: Routes = [
   {
@@ -19,9 +19,7 @@ export const routes: Routes = [
     }, 
       { path: 'dashboard', component: DashboardComponent, data: { breadcrumb: 'داشبورد' }  },
       { path: 'users', component: UserComponent ,data: { breadcrumb: 'کاربران' },
-      resolve:{
-        users:UserResolver
-      }},
+      },
     
 
 
