@@ -1,0 +1,68 @@
+
+<div class="min-h-screen flex items-center justify-center 
+    bg-gradient-to-r from-[#89f7fe] via-[#66a6ff] to-[#c7d2fe]">
+        <div class="bg-white bg-opacity-90 backdrop-blur-md rounded-3xl p-6 w-full max-w-md border border-gray-200 shadow-2xl">
+
+      <h2 class="text-2xl font-bold text-right text-gray-900 mb-1">ورود</h2>
+      <p class="text-gray-900 mb-4 text-right text-md mt-3">خوش آمدید! لطفا اطلاعات زیر را وارد کنید.</p>
+      <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" class="space-y-3">
+        
+        <div>
+          <label class="block text-black text-sm mb-1 mt-2"> نام کاریری <span class="text-red-500">*</span> </label>
+          <input
+            formControlName="username"
+            type="text"
+            placeholder=" نام کاربری"
+            class="w-full p-2.5 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 text-sm"
+          />
+          @if (f['username'].touched && f['username'].invalid) {
+            <div class="text-red-500 text-xs mt-0.5">
+              @if (f['username'].errors?.['required']) {
+                <span >این فیلد الزامی است</span>
+              }
+              @if (f['username'].errors?.['minlength']) {
+                <span >شماره تیکت معتبر نیست</span>
+              }
+            </div>
+
+
+          }
+
+        </div>
+  
+
+        <div>
+          <label class="block text-black text-sm mb-1">رمز عبور <span class="text-red-500">*</span></label>
+          <input
+            formControlName="password"
+            type="password"
+            placeholder="رمز عبور"
+            class="w-full p-2.5 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 text-sm"
+          />
+          @if (f['password'].touched && f['password'].invalid) {
+            <div class="text-red-500 text-xs mt-0.5">
+              @if (f['password'].errors?.['required']) {
+                <span >این فیلد الزامی است</span>
+              }
+              @if (f['password'].errors?.['password']) {
+                <span>ایمیل معتبر نیست</span>
+              }
+            </div>
+
+
+          }
+        </div>
+        
+        <button
+          type="submit"
+          [disabled]="loginForm.invalid"
+          class="w-full py-2.5 rounded-xl  bg-[#47b2e4]
+          text-white font-semibold shadow hover:bg-[#6eaecc] transition  text-sm mt-4 disabled:opacity-50">
+          ثبت
+        </button>
+  
+      </form>
+   
+    </div>
+  </div>
+  

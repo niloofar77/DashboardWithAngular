@@ -1,0 +1,31 @@
+<div class="grid gap-4 mt-4 m-3">
+  @if(role==="Admin"){
+    <p>admin panel</p>
+  }
+  @if(role==="User"){
+    <p>user panel</p>
+
+  }
+
+
+
+<div class="grid grid-cols-3 gap-3 ">
+    <div> 
+      <app-linechart></app-linechart>
+    </div>
+    <div >
+    <app-basic></app-basic>
+    </div>
+    <div >
+      <app-candle></app-candle>
+    </div>
+</div>
+
+
+
+  <div class="grid grid-cols-1 ">
+    <div><app-heatmap></app-heatmap></div>
+  </div>
+
+
+</div>
