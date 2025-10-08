@@ -21,6 +21,7 @@
      
 
     }
+    <button class="bg-blue-500 text-white font-bold rounded-2xl p-2"(click)="onAdd() ">اضافه کردن کاربر</button>
     <table class="border-collapse border border-gray-400 w-full text-left text-sm">
 
       <thead>
@@ -47,7 +48,7 @@
             {{ user.role }}
           </td>
           <td class="border border-gray-300 px-4 py-2 font-semibold capitalize">
-            <button (click)="deleteUser(user.id)">
+            <button (click)="onDelete(user.id)">
               <img src="assets/images/icons/trash.svg" class="w-6 h-6">
             </button>
 
