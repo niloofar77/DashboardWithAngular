@@ -1,8 +1,6 @@
-
 import { Component, OnInit, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-
 import { SearchBarComponent } from '../../../app/shared/searchbar/searchbar';
 import { SortComponent } from "../../../app/shared/sort/sort.component";
 import { ModalComponent } from '../../../app/shared/modal/modal.component';
@@ -11,12 +9,13 @@ import { UserService } from '../services/user.services';
 import { ActivatedRoute } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { User } from '../state/user.modal';
-import { addUser } from '../state/user.action';
+import { EditModalComponent } from '../../../app/shared/editModal/components/editModal';
+
 
 @Component({
   selector: 'app-users',
   standalone: true,
-  imports: [CommonModule, FormsModule, SearchBarComponent, SortComponent, ModalComponent, PaginationComponent],
+  imports: [CommonModule, FormsModule, SearchBarComponent, SortComponent, ModalComponent, PaginationComponent,EditModalComponent],
   templateUrl: './users.component.html',
   styleUrls: ['./users.component.css']
 })
@@ -29,7 +28,9 @@ export class UserComponent implements OnInit {
   message:string="با موفقیت حذف شد!"
   pagesize:number=10;
   totalItems:number=10
-  
+  showEdit:boolean=false
+  selectedUser: any = null;
+
 
 
   constructor(private settingService: UserService,private route:ActivatedRoute, private store: Store<{ users: { users: User[] } }>) {}
@@ -116,7 +117,6 @@ export class UserComponent implements OnInit {
     this.showModal.set(true)
     this.settingService.deleteUser(userId).subscribe({
       next: (res) => {
-    
         this.usersData = this.usersData.filter(user => user.id !== userId);
       },
       error: (err) => {
@@ -132,54 +132,33 @@ export class UserComponent implements OnInit {
     this.currentPage = newPage;
     this.fetchUsers(); 
   }
+
+  editUser(userId: number) {
+    const foundUser = this.usersData.find(u => u.id === userId);
+    if (foundUser) {
+      this.selectedUser = { ...foundUser };
+      this.showEdit = true;
+    }
+  }
+  
+  saveUserEdits(updatedUser: any) {
+    if (!this.selectedUser) return;
+  
+    const payload = { ...this.selectedUser, ...updatedUser };
+    this.settingService.updateUser(this.selectedUser.id,payload).subscribe({
+      next: (res: any) => {
+        this.usersData = this.usersData.map(u => u.id === res.id ? res : u);
+        this.showEdit = false;
+      },
+      error: (err) => console.error(err)
+    });
+  }
+  
+  
+
+  
+
+  
+
   
 }
-
-//tamrin
-// import { Component, OnInit } from '@angular/core';
-// import { Store, select } from '@ngrx/store';
-// import { Observable } from 'rxjs';
-// import { User } from '../state/user.modal';
-// import { loadUsers, addUser } from '../state/user.action';
-// import { UserState } from '../state/user.reducer';
-// import { FormsModule } from '@angular/forms';
-// import { CommonModule } from '@angular/common';
-
-// @Component({
-//   selector: 'app-user',
-//   templateUrl: './users.component.html',
-//   styleUrls: ['./users.component.css'],
-//   imports:[FormsModule,CommonModule]
-// })
-// export class UserComponent implements OnInit {
-//   users$: Observable<User[]>;
-//   newUserName = '';
-//   newUserEmail = '';
-//   newUserRole = '';
-
-//   constructor(private store: Store<{ users: UserState }>) {
-//     this.users$ = store.pipe(select(state => state.users.users));
-//   }
-
-//   ngOnInit(): void {
-//     this.store.dispatch(loadUsers());
-//   }
-
-//   addNewUser() {
-//     if (!this.newUserName || !this.newUserEmail || !this.newUserRole) return;
-
-//     this.store.dispatch(addUser({
-//       user: {
-//         id:13333,
-//         name: this.newUserName,
-//         email: this.newUserEmail,
-//         role: this.newUserRole
-//       }
-//     }));
-
-//     // پاک کردن فرم
-//     this.newUserName = '';
-//     this.newUserEmail = '';
-//     this.newUserRole = '';
-//   }
-// }

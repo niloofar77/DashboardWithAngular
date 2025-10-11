@@ -1,94 +1,71 @@
+<div class="p-8">
+  <app-search-bar [(ngModel)]="searchQuery" (searchEvent)="onSearchChanged($event)"></app-search-bar>
+  <ul>
+    <li *ngFor="let item of filteredAndSortedUsers">{{ item.name }}</li>
+  </ul>
+  <button (click)="onSort()" class="mb-6">
+    <app-sort (sortItemsEvent)="onSort()"></app-sort>
+  </button>
+  @if (showModal()) {
+    <app-modal [typeAlert]="'success'" [message]=message (closeModalEvent)="closeModal()"></app-modal>
+  }
+  <div class=" flex flex-row justify-end mb-6">
+
+    <button class="bg-blue-500 text-white font-bold rounded-2xl p-2">اضافه کردن کاربر</button>
+
+  </div>
+  <table class="border-collapse border border-gray-400 w-full text-left text-sm">
+
+    <thead>
+      <tr class="bg-gray-100 border-b">
+        <th class="border border-gray-300 px-4 py-2 bg-gray-300  text-center"> شماره</th>
+        <th class="border border-gray-300 px-4 py-2 bg-gray-300  text-center">اسم</th>
+        <th class="border border-gray-300 px-4 py-2 bg-gray-300 text-center">نام خانوادگی</th>
+        <th class="border border-gray-300 px-4 py-2 bg-gray-300 text-center">نام کاربری</th>
+        <th class="border border-gray-300 px-4 py-2 bg-gray-300 text-center">ایمیل</th>
+        <th class="border border-gray-300 px-4 py-2 bg-gray-300 text-center">نقش</th>
+        <th class="border border-gray-300 px-4 py-2 bg-gray-300 text-center">عملیات</th>
+      </tr>
+    </thead>
 
 
-
-  <div class="p-8">
-
-
-    <app-search-bar  [(ngModel)]="searchQuery" (searchEvent)="onSearchChanged($event)"></app-search-bar>
-
-    <ul>
-      <li *ngFor="let item of filteredAndSortedUsers">{{ item.name }}</li>
-    </ul>
+    <tbody>
+      <tr *ngFor="let user of filteredAndSortedUsers" class="hover:bg-gray-50 even:bg-gray-50 text-center">
     
-    <button (click)="onSort()" class="mb-6">
-      <app-sort (sortItemsEvent)="onSort()"></app-sort>
-
-    </button>
-    @if (showModal()) {
- 
-        <app-modal [typeAlert]="'success'" [message]=message (closeModalEvent)="closeModal()" ></app-modal>
-      
-     
-
-    }
-    <div class=" flex flex-row justify-end mb-6">
-      
-      <button class="bg-blue-500 text-white font-bold rounded-2xl p-2">اضافه کردن کاربر</button>
-
-    </div>
-    <table class="border-collapse border border-gray-400 w-full text-left text-sm">
-
-      <thead>
-        <tr class="bg-gray-100 border-b">
-          <th class="border border-gray-300 px-4 py-2 bg-gray-300  text-center"> شماره</th>
-          <th class="border border-gray-300 px-4 py-2 bg-gray-300  text-center">اسم</th>
-          <th class="border border-gray-300 px-4 py-2 bg-gray-300 text-center">نام خانوادگی</th>
-          <th class="border border-gray-300 px-4 py-2 bg-gray-300 text-center">نام کاربری</th>
-          <th class="border border-gray-300 px-4 py-2 bg-gray-300 text-center">ایمیل</th>
-          <th class="border border-gray-300 px-4 py-2 bg-gray-300 text-center">نقش</th>
-          <th class="border border-gray-300 px-4 py-2 bg-gray-300 text-center">عملیات</th>
-        </tr>
-      </thead>
-  
-
-      <tbody>
-        <tr *ngFor="let user of filteredAndSortedUsers" class="hover:bg-gray-50 even:bg-gray-50 text-center">
-          <td class="border border-gray-300 px-4 py-2">{{ user.id }}</td>
-          <td class="border border-gray-300 px-4 py-2">{{ user.firstName }}</td>
-          <td class="border border-gray-300 px-4 py-2">{{ user.lastName }}</td>
-          <td class="border border-gray-300 px-4 py-2">{{ user.username }}</td>
-          <td class="border border-gray-300 px-4 py-2">{{ user.email }}</td>
-          <td class="border border-gray-300 px-4 py-2 font-semibold capitalize">
-            {{ user.role }}
-          </td>
-          <td class="border border-gray-300 px-4 py-2 font-semibold capitalize">
-            <button >
-              <img src="assets/images/icons/trash.svg" class="w-6 h-6">
-            </button>
-
-          </td>
-
-        </tr>
-      </tbody>
-    </table>
-  
+        <td class="border border-gray-300 px-4 py-2">{{ user.id }}</td>
+        <td class="border border-gray-300 px-4 py-2">{{ user.firstName }}</td>
+        <td class="border border-gray-300 px-4 py-2">{{ user.lastName }}</td>
+        <td class="border border-gray-300 px-4 py-2">{{ user.username }}</td>
+        <td class="border border-gray-300 px-4 py-2">{{ user.email }}</td>
+        <td class="border border-gray-300 px-4 py-2 font-semibold capitalize">
+          {{ user.role }}
+        </td>
+        <td class="border border-gray-300 px-4 py-2 font-semibold capitalize">
+          <button>
+            <img src="assets/images/icons/trash.svg" class="w-6 h-6 m-2" (click)="deleteUser(user.id)">
+          </button>
+          <button>
+            <img src="assets/images/icons/edit.svg" class="w-6 h-6 m-2" (click)="editUser(user.id)">
+          </button>
     
-    <div *ngIf="filteredAndSortedUsers.length === 0" class="text-center mt-8 p-4 bg-red-100 text-red-500 rounded-md">
-      <p>هیچ کاربری یافت نشد.</p>
-    </div>
-    <app-pagination
-    [totalItems]="totalItems"
-    [itemsPerPage]="pagesize"
-    [currentPage]="currentPage"
-    (pageChanged)="onPageChanged($event)"
-  >
-</app-pagination>
+
+        </td>
+
+      
+      </tr>
+      @if(showEdit){
+        <app-edit [isOpen]="showEdit" [userData]="selectedUser" (close)="showEdit = false"
+          (save)="saveUserEdits($event)"></app-edit>
+        }
+    </tbody>
+  </table>
+
+
+  <div *ngIf="filteredAndSortedUsers.length === 0" class="text-center mt-8 p-4 bg-red-100 text-red-500 rounded-md">
+    <p>هیچ کاربری یافت نشد.</p>
   </div>
 
-  
-  <!-- <div>
-    <h2>Users</h2>
-  
-    <ul>
-      <li *ngFor="let user of users$ | async">
-        {{ user.id }} - {{ user.name }} - {{ user.email }} - {{ user.role }}
-      </li>
-    </ul>
-  
-    <h3>Add New User</h3>
-    <input placeholder="Name" [(ngModel)]="newUserName" />
-    <input placeholder="Email" [(ngModel)]="newUserEmail" />
-    <input placeholder="Role" [(ngModel)]="newUserRole" />
-    <button (click)="addNewUser()">Add User</button>
-  </div>
-   -->
+  <app-pagination [totalItems]="totalItems" [itemsPerPage]="pagesize" [currentPage]="currentPage"
+    (pageChanged)="onPageChanged($event)">
+  </app-pagination>
+</div>

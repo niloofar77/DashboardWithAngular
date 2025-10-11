@@ -45,7 +45,7 @@ export class candleChartComponent  implements AfterViewInit {
     this.chartOptions = {
       series: [
         {
-          name: "line",
+          name: "خطی",
           type: "line",
           data: [
             {
@@ -67,7 +67,7 @@ export class candleChartComponent  implements AfterViewInit {
           ]
         },
         {
-          name: "candle",
+          name: "شمع",
           type: "candlestick",
           data: [
             {

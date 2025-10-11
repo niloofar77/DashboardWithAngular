@@ -63,16 +63,16 @@ export class BasicChartComponent  implements AfterViewInit {
       },
       xaxis: {
         categories: [
-          "South Korea",
-          "Canada",
-          "United Kingdom",
-          "Netherlands",
-          "Italy",
-          "France",
-          "Japan",
-          "United States",
-          "China",
-          "Germany"
+          "کره شمالی",
+          "کانادا",
+          "ایتالیا",
+          "هلند",
+          "ایتالیا",
+          "فرانسه",
+          "ژاپن",
+          "امریکا",
+          "چین",
+          "المان"
         ],
         
       },

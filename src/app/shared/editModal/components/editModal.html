@@ -1,0 +1,23 @@
+<div class="fixed inset-0 bg-black/20 flex items-center justify-center" *ngIf="isOpen">
+    <div class="relative bg-white border-2 border-gray-300 w-[400px] p-6 rounded-xl shadow-lg">
+    
+        <button (click)="closeModal()" class="absolute top-2 right-2 text-gray-500 hover:text-gray-800 text-lg">
+            ✕
+        </button>
+        <h2 class="text-xl font-semibold mb-4">ویرایش کاربر</h2>
+        <form [formGroup]="userForm" (ngSubmit)="onSubmit()">
+            <div class="flex flex-col gap-3">
+                <input type="text" id="firstName" placeholder="اسم" formControlName="firstName"
+                    class="border rounded-lg p-2" />
+
+                <input type="text" id="username" placeholder="نام کاربری" formControlName="username"
+                    class="border rounded-lg p-2" />
+
+                <button type="submit" [disabled]="userForm.invalid"
+                    class="bg-blue-600 text-white rounded-lg py-2 mt-3 hover:bg-blue-700">
+                    ذخیره
+                </button>
+            </div>
+        </form>
+    </div>
+</div>

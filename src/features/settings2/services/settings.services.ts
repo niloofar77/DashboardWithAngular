@@ -27,9 +27,27 @@ export class UserService {
       deleteUser(id:number){
         return this.http.delete(`https://dummyjson.com/users/${id}`, { observe: 'response' });
       }
-
-      updateUser(id:number,payload:any){
-        return this.http.put(`https://dummyjson.com/users/${id}`,payload, { observe: 'response' })
-      }
     
 }
+//tamrin
+// import { Injectable } from '@angular/core';
+// import { HttpClient } from '@angular/common/http';
+// import { Observable } from 'rxjs';
+// import { User } from '../state/user.modal';
+
+// @Injectable({
+//   providedIn: 'root'
+// })
+// export class UserService {
+//   private baseUrl = 'https://dummyjson.com/users';
+
+//   constructor(private http: HttpClient) {}
+
+//   getUsers(): Observable<User[]> {
+//     return this.http.get<User[]>(`${this.baseUrl}`);
+//   }
+
+//   createUser(user:User): Observable<User> {
+//     return this.http.post<User>(`${this.baseUrl}/add`, user);
+//   }
+// }
