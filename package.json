@@ -21,7 +21,7 @@
     "@ngrx/store": "^19.2.1",
     "@ngrx/store-devtools": "^19.2.1",
     "@tailwindcss/postcss": "^4.1.13",
-    "angular-plotly.js": "^20.0.0",
+    "angular-plotly.js": "^19.0.0",
     "apexcharts": "^5.3.5",
     "lightweight-charts": "^5.0.8",
     "ng-apexcharts": "^2.0.1",
