@@ -19,8 +19,8 @@ export class UserService {
       const skip = (page - 1) * itemsPerPage; 
       return this.http.get(`https://dummyjson.com/users?skip=${skip}&limit=${itemsPerPage}`, { observe: 'response' });
     }
-    createUser(user:User):Observable<User>{
-      return this.http.post<User>(`'https://dummyjson.com/users/add`,user );
+    createUser(payload:any){
+      return this.http.post(`https://dummyjson.com/users/add`,payload, { observe: 'response' });
 
       
     }

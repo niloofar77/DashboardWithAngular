@@ -1,9 +1,13 @@
+<div class="p-8">
+  <form [formGroup]="avatarForm" (ngSubmit)="onSubmit()" >
+    <p>لطفا عکس مورد نظر را انتخاب کنید</p>
+    <label class="block mb-2 cursor-pointer p-2 border border-gray-300 rounded h-[64px] w-1/2 mt-4">
+      انتخاب عکس
+      <input type="file" formControlName="file" (change)="onFileChange($event)" accept="image/*" class="hidden" />
+    </label>
 
-
-
-  <div class="p-8">
-    <p>ssssssssss
-      
-    </p>
-
-  </div>
+    <button type="submit" class="px-4 py-2 bg-blue-500 text-white rounded">
+      ذخیره
+    </button>
+  </form>
+</div>

@@ -10,12 +10,13 @@ import { ActivatedRoute } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { User } from '../state/user.modal';
 import { EditModalComponent } from '../../../app/shared/editModal/components/editModal';
+import { AddModalComponent } from '../../../app/shared/addModal/components/addModal';
 
 
 @Component({
   selector: 'app-users',
   standalone: true,
-  imports: [CommonModule, FormsModule, SearchBarComponent, SortComponent, ModalComponent, PaginationComponent,EditModalComponent],
+  imports: [CommonModule, FormsModule, SearchBarComponent, SortComponent, ModalComponent, PaginationComponent, EditModalComponent, AddModalComponent],
   templateUrl: './users.component.html',
   styleUrls: ['./users.component.css']
 })
@@ -30,10 +31,12 @@ export class UserComponent implements OnInit {
   totalItems:number=10
   showEdit:boolean=false
   selectedUser: any = null;
+  showAdd:boolean=false;
+  userData:any=""
 
 
 
-  constructor(private settingService: UserService,private route:ActivatedRoute, private store: Store<{ users: { users: User[] } }>) {}
+  constructor(private settingService: UserService) {}
   
 
   ngOnInit(): void {
@@ -76,7 +79,7 @@ export class UserComponent implements OnInit {
   
 
     get filteredAndSortedUsers() {
-   
+
     let filtered = this.usersData.filter(item =>
       item.firstName?.toLowerCase().includes(this.searchQuery.toLowerCase())
     );
@@ -100,9 +103,9 @@ export class UserComponent implements OnInit {
 
       this.filteredAndSortedUsers.map((user:any)=>{
       user.firstName.toLowerCase()===query.toLocaleLowerCase
-   })
+  })
 
-   
+
   }
   fetchUsers() {
     this.settingService.getAllUsers(this.currentPage, this.pagesize).subscribe((response: any) => {
@@ -153,12 +156,25 @@ export class UserComponent implements OnInit {
       error: (err) => console.error(err)
     });
   }
-  
-  
 
-  
+  addUser(user: any) {
+    console.log("Addd a user")
+    this.settingService.createUser(user).subscribe({
+      next: (res: any) => {
+        this.usersData = [...this.usersData, res];
+        this.showEdit = false;
+      },
+      error: (err) => {
+        console.error(err);
+        this.showEdit = false;
+      }
+    });
+  }
 
-  
 
-  
+
+
+
+
+
 }

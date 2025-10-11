@@ -1,20 +1,44 @@
 
 import { Component, OnInit, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
+import { FormControl, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { SettingsService } from '../services/settings.services';
 
-import { SearchBarComponent } from '../../../app/shared/searchbar/searchbar';
-import { SortComponent } from "../../../app/shared/sort/sort.component";
-import { ModalComponent } from '../../../app/shared/modal/modal.component';
-import { PaginationComponent } from "../../../app/shared/pagination/pagination.component";
 
 
 @Component({
   selector: 'app-settings',
   standalone: true,
-  imports: [CommonModule, FormsModule, SearchBarComponent, SortComponent, ModalComponent, PaginationComponent],
+  imports: [CommonModule, FormsModule, ReactiveFormsModule],
   templateUrl: './settings.component.html',
   styleUrls: ['./settings.component.css']
 })
 export class SettingsComponent  {
+  avatarForm!:FormGroup
+  avatarImage=new FormGroup({
+    fileAvatar:new FormControl(null)
+    }
+  )
+
+
+  constructor(private settingsService:SettingsService){
+
+  }
+  onFileChange(event: any) {
+    const file = event.target.files[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onload = () => {
+        const url = reader.result as string;
+        this.settingsService.updateAvatar(url); 
+      };
+      reader.readAsDataURL(file);
+    }
+  }
+  onSubmit(){
+   
+    console.log('File uploaded:', this.avatarImage.value.fileAvatar);
+
+  }
+
 }

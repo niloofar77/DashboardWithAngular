@@ -5,6 +5,7 @@ import { MainLayoutComponent } from './layouts/main/components/main';
 
 import { RoleGuard } from './core/guards/authGuard';
 import { UserComponent } from '../features/settings/components/users.component';
+import { SettingsComponent } from '../features/settings2/components/settings.component';
 
 
 export const routes: Routes = [
@@ -19,6 +20,9 @@ export const routes: Routes = [
     }, 
       { path: 'dashboard', component: DashboardComponent, data: { breadcrumb: 'داشبورد' }  },
       { path: 'users', component: UserComponent ,data: { breadcrumb: 'کاربران' },
+
+      }, { path: 'settings', component: SettingsComponent ,data: { breadcrumb: 'تنظیمات' },
+      
       },
     
 

@@ -1,4 +1,4 @@
-import { Component, signal } from '@angular/core';
+import { Component, OnInit, signal } from '@angular/core';
 import { NgApexchartsModule } from 'ng-apexcharts';
 import { DashboardComponent } from '../../../../features/dashboard/components/dashboard.component';
 import { RouterLink, RouterOutlet } from '@angular/router';
@@ -8,6 +8,8 @@ import { ThemeToggleComponent } from "../../../shared/theme-toggle/theme-toggle.
 import { AuthService } from '../../../../features/auth/services/auth.service';
 import { ThemeService } from '../../../core/services/theme.service';
 import { BreadcrumbComponent } from '../../../shared/breadcrump/components/breadcrump';
+import { decodeToken } from '../../../shared/utils/decodeToken';
+import { SettingsService } from '../../../../features/settings2/services/settings.services';
 
 
 @Component({
@@ -22,17 +24,27 @@ import { BreadcrumbComponent } from '../../../shared/breadcrump/components/bread
     MenuComponent,
     RouterOutlet,
     ThemeToggleComponent,
-    BreadcrumbComponent
+    BreadcrumbComponent,
+    
+    
 ]
 })
-export class MainLayoutComponent {
-  constructor( private authService:AuthService, public  theme:ThemeService){
+export class MainLayoutComponent implements OnInit {
+  constructor( private authService:AuthService, public  theme:ThemeService,private settingsService:SettingsService){
 
   }
+  avatarUrl: string = 'assets/images/icons/avatar.svg';
+  
+ngOnInit(): void {
+  this.decodeUsername();
+  this.settingsService.avatar$.subscribe(url=>{
+    this.avatarUrl=url
+  })
+}
 
- 
   isSidebarOpen = signal(true);
   isMenuOpen:boolean=false
+   username:string=""
   toggleSidebar() {
     console.log("Toggling sidebar");
     this.isSidebarOpen.set(!this.isSidebarOpen());
@@ -45,7 +57,12 @@ export class MainLayoutComponent {
   logoOut(){
     this.authService.logout()
   }
- 
+  decodeUsername(){
+   const token=localStorage.getItem("accessToken")
+  const usernamef =decodeToken(token).username
+  this.username=usernamef
+  }
+
 
 
 }

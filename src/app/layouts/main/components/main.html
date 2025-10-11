@@ -1,40 +1,43 @@
+<nav
+  class="bg-[#F9F6EE] dark:bg-gray-900 text-gray-900 dark:text-gray-100 flex items-center justify-between px-6 py-3 shadow-md border-b border-gray-200 dark:border-gray-700 transition-all duration-300">
 
-<nav class="bg-white dark:bg-gray-800 text-black dark:text-white flex items-center justify-between px-4 py-3 shadow-md  border-b border-gray-300 ">
-
-  <button (click)="toggleSidebar()"> 
-    <img src="assets/images/icons/hamburger.svg" class="w-8 h-8"> 
+  <button (click)="toggleSidebar()" class="p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 transition">
+    <img src="assets/images/icons/hamburger.svg" alt="Menu" class="w-6 h-6" />
   </button>
-  <div class="flex items-center gap-3"> 
-    <img src="assets/images/icons/logo2.png" class="w-8 h-8"> 
-    <span class="font-bold text-lg">پنل مدیریت</span> 
-  </div>
-  <app-theme-toggle></app-theme-toggle>
-  <div class="flex flex-row items-center">
-   
-      <div class="rounded-full bg-gray-200"> 
-        <button (click)="toggleMenu()">
-        <img src="assets/images/icons/avatar.svg" class="w-8 h-8"> 
-        <div class="relative bottom-0 z-1000 left-2">
-          <app-menu [isOpen]="isMenuOpen" (toggleMenuEvent)="toggleMenu()"></app-menu>
-        </div>
-    
-       
 
-        
+  <div class="flex items-center gap-3">
+    <img src="assets/images/icons/logo2.png" alt="Logo" class="w-8 h-8 rounded-md shadow-sm" />
+    <span class="font-semibold text-lg md:text-xl tracking-tight">پنل مدیریت</span>
+  </div>
+
+  <div class="flex items-center gap-4">
+    <div class="relative flex items-center gap-2">
+      <button (click)="toggleMenu()"
+        class="relative flex items-center gap-2 rounded-full hover:bg-gray-100 dark:hover:bg-gray-800 p-1 pr-3 transition">
+        <img [src]="avatarUrl" alt="User" class="w-8 h-8 rounded-full" />
+        <p class=" sm:block font-medium">{{ username }}</p>
+
       </button>
-      </div>
-      <p class="text-black dark:text-white font-bold m-2">نیلوفر موسوی</p>
-    
-  
-  </div>
 
+
+      <div class="absolute left-0 top-12 z-50 w-40">
+        <app-menu [isOpen]="isMenuOpen" (toggleMenuEvent)="toggleMenu()"></app-menu>
+      </div>
+    </div>
+    <app-theme-toggle></app-theme-toggle>
+
+
+
+  </div>
 </nav>
+
 
 <div class="flex h-screen">
 
 
-  <aside [ngClass]="{'hidden': !isSidebarOpen(), 'flex': isSidebarOpen()}"  id="sidebar" class="bg-gray-700 dark:bg-gray-900 w-[220px] flex-col py-6 text-white  shadow-lg md:flex">
-    <div class="flex items-center gap-3 px-4 py-3 hover:bg-gray-800 cursor-pointer rounded-lg mx-2"> 
+  <aside [ngClass]="{'hidden': !isSidebarOpen(), 'flex': isSidebarOpen()}" id="sidebar"
+    class="bg-gray-700 dark:bg-gray-900 w-[220px] flex-col py-6 text-white  shadow-lg md:flex">
+    <div class="flex items-center gap-3 px-4 py-3 hover:bg-gray-800 cursor-pointer rounded-lg mx-2">
       <img src="assets/images/icons/home.svg" class="w-5 h-5" />
       <a class="text-sm font-medium" routerLink="/">خانه</a>
     </div>
@@ -44,12 +47,12 @@
     </div>
     <div class="flex items-center gap-3 px-4 py-3 hover:bg-gray-800 cursor-pointer rounded-lg mx-2">
       <img src="assets/images/icons/settings.svg" class="w-5 h-5" />
-      <a class="text-sm font-medium" routerLink="/">تنظیمات</a>
+      <a class="text-sm font-medium" routerLink="/settings">تنظیمات</a>
     </div>
-    <div class="flex items-center gap-3 px-4 py-3 hover:bg-gray-800 cursor-pointer rounded-lg mx-2">
+    <!-- <div class="flex items-center gap-3 px-4 py-3 hover:bg-gray-800 cursor-pointer rounded-lg mx-2">
       <img src="assets/images/icons/settings.svg" class="w-5 h-5" />
       <a class="text-sm font-medium" routerLink="/">گزارش ها </a>
-    </div>
+    </div> -->
     <div class="flex items-center gap-3 px-4 py-3 hover:bg-gray-800 cursor-pointer rounded-lg mx-2 mt-auto">
       <img src="assets/images/icons/logout.svg" class="w-5 h-5" />
       <a class="text-sm font-medium" (click)="logoOut()">خروج</a>
@@ -58,6 +61,6 @@
 
   <main class="flex-1 gap-3 overflow-auto p-4 bg-white dark:bg-gray-800 text-black dark:text-white ">
     <app-breadcrumb></app-breadcrumb>
-     <router-outlet></router-outlet>
+    <router-outlet></router-outlet>
   </main>
 </div>

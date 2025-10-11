@@ -11,7 +11,7 @@
   }
   <div class=" flex flex-row justify-end mb-6">
 
-    <button class="bg-blue-500 text-white font-bold rounded-2xl p-2">اضافه کردن کاربر</button>
+    <button class="bg-blue-500 text-white font-bold rounded-2xl p-2" (click)="showAdd=true">اضافه کردن کاربر</button>
 
   </div>
   <table class="border-collapse border border-gray-400 w-full text-left text-sm">
@@ -57,6 +57,11 @@
         <app-edit [isOpen]="showEdit" [userData]="selectedUser" (close)="showEdit = false"
           (save)="saveUserEdits($event)"></app-edit>
         }
+        @if(showAdd){
+          <app-add [isOpen]="showAdd" [userData]="null" (close)="showAdd = false"
+            (save)="addUser($event)"></app-add>
+          }
+
     </tbody>
   </table>
 

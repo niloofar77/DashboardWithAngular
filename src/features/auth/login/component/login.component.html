@@ -2,8 +2,11 @@
 <div class="min-h-screen flex items-center justify-center 
     bg-gradient-to-r from-[#89f7fe] via-[#66a6ff] to-[#c7d2fe]">
         <div class="bg-white bg-opacity-90 backdrop-blur-md rounded-3xl p-6 w-full max-w-md border border-gray-200 shadow-2xl">
-
-      <h2 class="text-2xl font-bold text-right text-gray-900 mb-1">ورود</h2>
+          <div class="flex flex-col justify-center items-center">
+            <img src="assets/images/icons/logo2.png" class="w-20 h-20">
+            <h2 class="text-2xl font-bold text-right text-gray-900 mb-1">ورود</h2>
+          </div>
+    
       <p class="text-gray-900 mb-4 text-right text-md mt-3">خوش آمدید! لطفا اطلاعات زیر را وارد کنید.</p>
       <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" class="space-y-3">
         
@@ -39,15 +42,17 @@
             placeholder="رمز عبور"
             class="w-full p-2.5 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 text-sm"
           />
+
           @if (f['password'].touched && f['password'].invalid) {
             <div class="text-red-500 text-xs mt-0.5">
               @if (f['password'].errors?.['required']) {
                 <span >این فیلد الزامی است</span>
               }
               @if (f['password'].errors?.['password']) {
-                <span>ایمیل معتبر نیست</span>
+                <span> رمز عبور معتبر نیست</span>
               }
             </div>
+            
 
 
           }
