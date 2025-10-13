@@ -6,17 +6,15 @@ import { SortComponent } from "../../../app/shared/sort/sort.component";
 import { ModalComponent } from '../../../app/shared/modal/modal.component';
 import { PaginationComponent } from "../../../app/shared/pagination/pagination.component";
 import { UserService } from '../services/user.services';
-import { ActivatedRoute } from '@angular/router';
-import { Store } from '@ngrx/store';
-import { User } from '../state/user.modal';
 import { EditModalComponent } from '../../../app/shared/editModal/components/editModal';
 import { AddModalComponent } from '../../../app/shared/addModal/components/addModal';
+import { DatePickerComponent } from "../../../app/shared/datePicker/components/datepicker";
 
 
 @Component({
   selector: 'app-users',
   standalone: true,
-  imports: [CommonModule, FormsModule, SearchBarComponent, SortComponent, ModalComponent, PaginationComponent, EditModalComponent, AddModalComponent],
+  imports: [CommonModule, FormsModule, SearchBarComponent, SortComponent, ModalComponent, PaginationComponent, EditModalComponent, AddModalComponent, DatePickerComponent],
   templateUrl: './users.component.html',
   styleUrls: ['./users.component.css']
 })
