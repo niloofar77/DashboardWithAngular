@@ -3,7 +3,6 @@ import { Injectable, signal } from '@angular/core';
 
 import { Observable } from 'rxjs';
 import { EnvService } from '../../../app/core/services/env.service';
-import { User } from '../state/user.modal';
 
 
 @Injectable({ providedIn: 'root' })

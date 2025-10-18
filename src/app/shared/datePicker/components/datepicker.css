@@ -21,7 +21,7 @@
   }
   
   .datepicker-input:focus {
-    border-color: #3f51b5; /* رنگ اصلی */
+    border-color: #3f51b5; 
     box-shadow: 0 0 5px rgba(63, 81, 181, 0.3);
     outline: none;
   }

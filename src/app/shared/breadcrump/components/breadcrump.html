@@ -5,10 +5,10 @@
           *ngIf="!last; else lastBreadcrumb"
           [routerLink]="breadcrumb.url"
           class="hover:underline text-blue-600"
-          >{{ breadcrumb.label }}</a
+          >{{ translate( breadcrumb.label) }}</a
         >
         <ng-template #lastBreadcrumb>
-          <span class="text-gray-500">{{ breadcrumb.label }}</span>
+          <span class="text-gray-500">{{ translate( breadcrumb.label) }}</span>
         </ng-template>
         <span *ngIf="!last">/</span>
       </li>

@@ -1,10 +1,11 @@
 import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
+import { TranslateModule } from '@ngx-translate/core';
 import { NgApexchartsModule } from 'ng-apexcharts';
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet,NgApexchartsModule],
+  imports: [RouterOutlet,NgApexchartsModule,TranslateModule],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
 })

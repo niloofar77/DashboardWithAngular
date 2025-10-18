@@ -10,7 +10,8 @@ import { ThemeService } from '../../../core/services/theme.service';
 import { BreadcrumbComponent } from '../../../shared/breadcrump/components/breadcrump';
 import { decodeToken } from '../../../shared/utils/decodeToken';
 import { SettingsService } from '../../../../features/settings2/services/settings.services';
-
+import { TranslationService } from '../service/langService';
+import { TranslatePipe } from '../service/translate';
 
 @Component({
   selector: 'app-main-layout',
@@ -18,33 +19,38 @@ import { SettingsService } from '../../../../features/settings2/services/setting
   styleUrls: ['./main.css'],
   imports: [
     NgApexchartsModule,
-    DashboardComponent,
     RouterLink,
     CommonModule,
     MenuComponent,
     RouterOutlet,
     ThemeToggleComponent,
     BreadcrumbComponent,
-    
-    
-]
+    TranslatePipe
+
+
+  ]
 })
 export class MainLayoutComponent implements OnInit {
-  constructor( private authService:AuthService, public  theme:ThemeService,private settingsService:SettingsService){
-
+  constructor(private authService: AuthService, public theme: ThemeService, private settingsService: SettingsService,private langService:TranslationService) {
+  
   }
   avatarUrl: string = 'assets/images/icons/avatar.svg';
-  
-ngOnInit(): void {
-  this.decodeUsername();
-  this.settingsService.avatar$.subscribe(url=>{
-    this.avatarUrl=url
-  })
-}
+
+  selectedLang: string = 'fa';  
+
+  ngOnInit(): void {
+    this.decodeUsername();
+    this.settingsService.avatar$.subscribe(url => {
+      this.avatarUrl = url
+    })
+    const savedLang = localStorage.getItem('lang') || 'fa';
+    this.selectedLang = savedLang;
+    this.langService.load(savedLang).subscribe();
+  }
 
   isSidebarOpen = signal(true);
-  isMenuOpen:boolean=false
-   username:string=""
+  isMenuOpen: boolean = false
+  username: string = ""
   toggleSidebar() {
     console.log("Toggling sidebar");
     this.isSidebarOpen.set(!this.isSidebarOpen());
@@ -52,17 +58,23 @@ ngOnInit(): void {
 
   toggleMenu() {
     console.log("Toggling menu");
-    this.isMenuOpen=!this.isMenuOpen
+    this.isMenuOpen = !this.isMenuOpen
   }
-  logoOut(){
+  logoOut() {
     this.authService.logout()
   }
-  decodeUsername(){
-   const token=localStorage.getItem("accessToken")
-  const usernamef =decodeToken(token).username
-  this.username=usernamef
+  decodeUsername() {
+    const token = localStorage.getItem("accessToken")
+    const usernamef = decodeToken(token).username
+    this.username = usernamef
   }
-
-
+  changeLang(event: Event) {
+    const selectElement = event.target as HTMLSelectElement | null;
+    if (!selectElement) return;
+    const lang = selectElement.value;
+    console.log(lang,"langgggggggggg")
+    this.selectedLang = lang;
+    this.langService.load(lang).subscribe();
+  }
 
 }
