@@ -1,32 +1,14 @@
-<!-- <div
+
+<div class="fixed inset-0 bg-black/60 z-[900]" (click)="closeModal()"></div>
+  <div
   [ngClass]="{
     'bg-green-500': typeAlert==='success',
     'bg-red-500': typeAlert==='error',
     'bg-blue-200': typeAlert==='info'
   }"
-  class="fixed top-40  left-1/2 transform -translate-x-1/2 w-96 p-4 rounded-md z-[1000]"
->
-  <p class="text-white">{{ message }}</p>
-  <button (click)=" closeModal()">
+  class="fixed top-40 left-1/2 transform -translate-x-1/2 w-96 p-4 rounded-md z-[1000]">
 
-
-  </button>
-</div> -->
-<!-- Backdrop -->
-<div
-  class="fixed inset-0 bg-black/60 z-[900]"
-  (click)="closeModal()"
-></div>
-
-<!-- Modal box -->
-<div
-  [ngClass]="{
-    'bg-green-500': typeAlert==='success',
-    'bg-red-500': typeAlert==='error',
-    'bg-blue-200': typeAlert==='info'
-  }"
-  class="fixed top-40 left-1/2 transform -translate-x-1/2 w-96 p-4 rounded-md z-[1000]"
->
+  
   <p class="text-white p-3">{{ message }}</p>
   <button class="absolute top-2 left-2 " (click)="closeModal()">✕</button>
 </div>

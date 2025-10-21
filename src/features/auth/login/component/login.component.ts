@@ -4,10 +4,11 @@ import { FormsModule, ReactiveFormsModule, FormBuilder, FormGroup, Validators } 
 
 import { AuthService } from '../../services/auth.service';
 import { Router } from '@angular/router';
+import { ModalComponent } from '../../../../app/shared/modal/modal.component';
 
 @Component({
   selector: 'app-login',
-  imports: [CommonModule, FormsModule, ReactiveFormsModule],
+  imports: [CommonModule, FormsModule, ReactiveFormsModule,ModalComponent],
   templateUrl: './login.component.html',
   styleUrl: './login.component.css',
 })
@@ -18,6 +19,7 @@ export class LoginComponent {
   alertMessage = signal<string>('');
   typeModal = signal<'success' | 'error' | 'warning' | 'info'>('success');
   showPassWord=signal<boolean>(false);
+  showError=signal<boolean>(false);
 
   constructor(private fb: FormBuilder,private authService:AuthService, private router:Router) {
     this.loginForm = this.fb.group({
@@ -49,6 +51,9 @@ export class LoginComponent {
         localStorage.setItem("accessToken",res.accessToken)
   
         
+      },
+      error:()=>{
+          this.showError.set(true)
       }
     }
      
@@ -64,5 +69,9 @@ changeVisibility(){
   get f() {
     return this.loginForm.controls;
   }
+  closeModal(){
+    
+    this.showError.set(false)
 
+  }
 }

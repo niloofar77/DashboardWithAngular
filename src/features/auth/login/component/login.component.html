@@ -7,6 +7,12 @@
             <h2 class="text-2xl font-bold text-right text-gray-900 mb-1">ورود</h2>
           </div>
     
+          @if (showError()) {  
+
+            <app-modal [typeAlert]=" 'error'" [message]="'رمز عبور یا نام کاربری اشتباه است.'" (closeModalEvent)="closeModal()"></app-modal>
+                }
+            
+            
       <p class="text-gray-900 mb-4 text-right text-md mt-3">خوش آمدید! لطفا اطلاعات زیر را وارد کنید.</p>
       <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" class="space-y-3">
         
@@ -52,7 +58,6 @@
             />
           </div>
           
-          <!-- <img src="assets/images/icons/eye/eye-hide.svg"  class="w-5 h-5"> -->
 
           @if (f['password'].touched && f['password'].invalid) {
             <div class="text-red-500 text-xs mt-0.5">
