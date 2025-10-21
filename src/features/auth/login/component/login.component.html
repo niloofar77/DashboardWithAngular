@@ -36,12 +36,23 @@
 
         <div>
           <label class="block text-black text-sm mb-1">رمز عبور <span class="text-red-500">*</span></label>
-          <input
-            formControlName="password"
-            type="password"
-            placeholder="رمز عبور"
-            class="w-full p-2.5 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 text-sm"
-          />
+
+          <div class="relative w-full">
+            <input
+              formControlName="password"
+              [type]="showPassWord() ? 'text' : 'password'"
+              placeholder="رمز عبور"
+              class="w-full p-2.5 pr-10 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 text-sm"
+            />
+          
+            <img
+              [src]="showPassWord() ? 'assets/images/icons/eye/eye-hide.svg' : 'assets/images/icons/eye/eye.svg'"
+              (click)="changeVisibility()"
+              class="w-5 h-5 absolute right-2 top-1/2 transform -translate-y-1/2 cursor-pointer"
+            />
+          </div>
+          
+          <!-- <img src="assets/images/icons/eye/eye-hide.svg"  class="w-5 h-5"> -->
 
           @if (f['password'].touched && f['password'].invalid) {
             <div class="text-red-500 text-xs mt-0.5">

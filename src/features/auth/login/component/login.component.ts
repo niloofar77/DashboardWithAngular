@@ -17,6 +17,7 @@ export class LoginComponent {
   isSuccess = signal<boolean>(true);
   alertMessage = signal<string>('');
   typeModal = signal<'success' | 'error' | 'warning' | 'info'>('success');
+  showPassWord=signal<boolean>(false);
 
   constructor(private fb: FormBuilder,private authService:AuthService, private router:Router) {
     this.loginForm = this.fb.group({
@@ -56,7 +57,10 @@ export class LoginComponent {
   }
 
 }
-
+changeVisibility(){
+  this.showPassWord.set(!this.showPassWord())
+  
+}
   get f() {
     return this.loginForm.controls;
   }
