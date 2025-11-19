@@ -12,6 +12,10 @@ import { decodeToken } from '../../../shared/utils/decodeToken';
 import { SettingsService } from '../../../../features/settings2/services/settings.services';
 import { TranslationService } from '../service/langService';
 import { TranslatePipe } from '../service/translate';
+import { NotificationServiceService } from '../../../../features/notification-custom/services/notification-service.service';
+import { NotificationCustomComponent } from '../../../../features/notification-custom/notification-custom.component';
+import { SidebarComponent } from '../../../shared/sidebar/sidebar.component';
+
 
 @Component({
   selector: 'app-main-layout',
@@ -25,18 +29,27 @@ import { TranslatePipe } from '../service/translate';
     RouterOutlet,
     ThemeToggleComponent,
     BreadcrumbComponent,
-    TranslatePipe
+    TranslatePipe,
+    NotificationCustomComponent,
+    SidebarComponent
+
+    
+    
+  
 
 
   ]
 })
 export class MainLayoutComponent implements OnInit {
-  constructor(private authService: AuthService, public theme: ThemeService, private settingsService: SettingsService,private langService:TranslationService) {
+  constructor(private authService: AuthService, public theme: ThemeService, private settingsService: SettingsService,private langService:TranslationService,private notificationService:NotificationServiceService) {
   
   }
-  avatarUrl: string = 'assets/images/icons/avatar.svg';
+  avatarUrl: string = 'assets/images/avatar2.jpg';
+  notifUrl:string="assets/images/icons/notification.svg"
+  notifications: any[] = [];
+  open = false;
+  selectedLang: string = 'fa'; 
 
-  selectedLang: string = 'fa';  
 
   ngOnInit(): void {
     this.decodeUsername();
@@ -60,9 +73,7 @@ export class MainLayoutComponent implements OnInit {
     console.log("Toggling menu");
     this.isMenuOpen = !this.isMenuOpen
   }
-  logoOut() {
-    this.authService.logout()
-  }
+ 
   decodeUsername() {
     const token = localStorage.getItem("accessToken")
     const usernamef = decodeToken(token).username
@@ -76,5 +87,7 @@ export class MainLayoutComponent implements OnInit {
     this.selectedLang = lang;
     this.langService.load(lang).subscribe();
   }
-
+  toggleDropdown() {
+    this.open = !this.open;
+  }
 }

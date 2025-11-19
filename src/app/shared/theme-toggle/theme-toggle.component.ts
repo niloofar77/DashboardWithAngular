@@ -9,10 +9,10 @@ import { ThemeService } from '../../core/services/theme.service';
   template: `
     <button
       (click)="toggleTheme()"
-      class="p-2 rounded-md border border-gray-300 dark:border-gray-600 transition"
+      class="p-2 rounded-full border border-gray-300 dark:border-gray-600 transition"
     >
-      <span *ngIf="!isDark">🌙  تاریک</span>
-      <span *ngIf="isDark">☀️ روشن</span>
+      <span *ngIf="!isDark">🌙  </span>
+      <span *ngIf="isDark">☀️ </span>
     </button>
   `,
 })

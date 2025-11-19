@@ -1,0 +1,25 @@
+<div class="w-72 bg-white rounded-lg p-4  z-50" >
+  <div class="flex flex-row  justify-between  align-middle">
+    <h3 class="text-lg font-semibold mb-3">Notifications</h3>
+    <img src="assets/images/icons/cross.svg" class="w-6 h-6">
+
+
+  </div>
+    
+    <div *ngIf="loading" class="text-gray-500 text-sm">Loading...</div>
+  
+    <ul class="space-y-3" *ngIf="!loading">
+      <li *ngFor="let n of notifications" class="p-2 border-b-1  border-gray-300  hover:bg-gray-100 ">
+        <div class="flex flex-row justify-center align-middle">
+          <div class="flex rounded-full">
+            <!-- <img src="assets/images/avatar1.jpg" class="w-6 h-6"> -->
+          </div>
+
+          
+          <h4 class="font-medium text-right">{{ n.title }}</h4>
+        </div>
+
+    
+      </li>
+    </ul>
+  </div>
